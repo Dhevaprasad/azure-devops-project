@@ -1,0 +1,37 @@
+trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  imageRepository: 'myapp'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  imageTag: '$(Build.BuildId)'
+
+steps:
+
+- task: UsePythonVersion@0
+  displayName: 'Use Python 3.12'
+  inputs:
+    versionSpec: '3.12'
+
+- script: |
+    python -m pip install --upgrade pip
+    pip install -r app/requirements.txt
+    pip install pytest
+  displayName: 'Install Python dependencies'
+
+- script: |
+    pytest
+  displayName: 'Run PyTest'
+
+- task: Docker@2
+  displayName: 'Build and Push Docker Image to ACR'
+  inputs:
+    containerRegistry: 'ACR-Service-Connection'
+    repository: '$(imageRepository)'
+    command: 'buildAndPush'
+    Dockerfile: '$(dockerfilePath)'
+    tags: |
+      $(imageTag)
