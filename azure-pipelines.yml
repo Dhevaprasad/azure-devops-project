@@ -35,3 +35,18 @@ steps:
     Dockerfile: '$(dockerfilePath)'
     tags: |
       $(imageTag)
+
+- task: KubernetesManifest@1
+  displayName: 'Deploy to AKS'
+  inputs:
+    action: 'deploy'
+    connectionType: 'azureResourceManager'
+    azureSubscriptionConnection: 'AKS-Service-Connection'
+    azureResourceGroup: 'rg-devops-project'
+    kubernetesCluster: 'aks-devops-project'
+    namespace: 'default'
+    manifests: |
+      k8s/deployment.yaml
+      k8s/service.yaml
+    containers: |
+      acrdevopsproject2026.azurecr.io/myapp:$(Build.BuildId)
