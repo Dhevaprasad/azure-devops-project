@@ -305,7 +305,7 @@ Two service connections were configured:
     ACR-Service-Connection
             |
             +--> ACR authentication
-            +--> AcrPush permission
+            +--> AcrPull permission
 
     AKS-Service-Connection
             |
