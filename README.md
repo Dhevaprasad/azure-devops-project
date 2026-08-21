@@ -542,9 +542,9 @@ Useful commands used to verify the deployment:
 
     kubectl get svc
 
-### Check EndpointSlices
+### Check Endpoint
 
-    kubectl get endpointslices
+    kubectl get endpoint
 
 ### Check HPA
 
@@ -601,16 +601,6 @@ This separates:
 ---
 
 # 15. 📸 Screenshots
-
-Store the screenshots in the repository under:
-
-    screenshots/
-    ├── hpa-scaling.png
-    ├── pipeline.png
-    ├── kubernetes.png
-    └── service-connections.png
-
-Then add them to this README:
 
 ### HPA Scaling
 
